@@ -8,6 +8,8 @@ class StudentController {
   }
 
   async update(req, res) {
+    console.log(req.userId);
+
     return res.json({ message: 'ok' });
   }
 }
