@@ -11,6 +11,8 @@ const routes = new Router();
 
 routes.post('/users', UserController.store);
 
+routes.put('/users', auth, UserController.update);
+
 routes.post('/students', StudentController.store);
 
 routes.put('/students', auth, StudentController.update);
