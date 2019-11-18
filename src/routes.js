@@ -13,7 +13,7 @@ routes.post('/users', UserController.store);
 
 routes.put('/users', auth, UserController.update);
 
-routes.post('/students', StudentController.store);
+routes.post('/students', auth, StudentController.store);
 
 routes.put('/students', auth, StudentController.update);
 

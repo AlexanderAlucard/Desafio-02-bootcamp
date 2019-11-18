@@ -2,15 +2,39 @@ import Student from '../models/Student';
 
 class StudentController {
   async store(req, res) {
-    const student = await Student.create(req.body);
+    const userExist = await Student.findOne({
+      where: { email: req.body.email },
+    });
+    if (userExist) {
+      return res.status(400).json({ error: 'Student alredy exists.' });
+    }
 
-    return res.json(student);
+    const { id, name, email } = await Student.create(req.body);
+
+    return res.json({
+      id,
+      name,
+      email,
+    });
   }
 
   async update(req, res) {
-    console.log(req.userId);
+    const { id } = req.body;
+    const user = req.userId;
+    const studentExist = await Student.findOne({ where: { id } });
 
-    return res.json({ message: 'ok' });
+    if (!studentExist) {
+      return res.status(400).json({ error: 'Student does not exist.' });
+    }
+
+    const { name, email } = await studentExist.update(req.body);
+
+    return res.json({
+      user,
+      id,
+      name,
+      email,
+    });
   }
 }
 
